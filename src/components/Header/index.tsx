@@ -20,8 +20,8 @@ export function Header () {
             <a>Certificates</a>
           </ActiveLink>
 
-          <ActiveLink href={'/experiences'} activeClassName={styles.active}> 
-            <a>Experiencias</a>
+          <ActiveLink href={'/sobre'} activeClassName={styles.active}> 
+            <a>Sobre mim</a>
           </ActiveLink>
 
         </nav>
