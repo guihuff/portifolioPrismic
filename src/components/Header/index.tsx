@@ -2,24 +2,27 @@ import styles from './styles.module.scss'
 import Image from 'next/image'
 import logo from '../../../public/images/logo-dark-theme-ci.svg'
 
-import Link from 'next/link'
+import { ActiveLink } from '../ActiveLink'
 
 export function Header () {
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
-        <a><Image src={logo} alt='Guilherme Feier Huff Logo'/></a>
-
+        <ActiveLink href={'/'} activeClassName={styles.active}>
+          <a><Image src={logo} alt='Guilherme Feier Huff Logo'/></a>
+        </ActiveLink>
         <nav>
-          <Link href={'/'} legacyBehavior> 
+          <ActiveLink href={'/'} activeClassName={styles.active}> 
             <a>Home</a>
-          </Link>
-          <Link href={'/'} legacyBehavior> 
-            <a>Conteúdos</a>
-          </Link>
-          <Link href={'/'} legacyBehavior> 
-            <a>Quem somos?</a>
-          </Link>
+          </ActiveLink>
+
+          <ActiveLink href={'/certificates'} activeClassName={styles.active} > 
+            <a>Certificates</a>
+          </ActiveLink>
+
+          <ActiveLink href={'/experiences'} activeClassName={styles.active}> 
+            <a>Experiencias</a>
+          </ActiveLink>
 
         </nav>
         <a className={styles.contactButton} type="button" href='https://sujeitoprogramador.com'>Contatar</a>
