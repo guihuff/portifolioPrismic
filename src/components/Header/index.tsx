@@ -9,7 +9,7 @@ export function Header () {
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
         <ActiveLink href={'/'} activeClassName={styles.active}>
-          <a><Image src={logo} alt='Guilherme Feier Huff Logo'/></a>
+          <a><Image src={logo} alt='Guilherme Feier Huff Logo' height={96} width={170}/></a>
         </ActiveLink>
         <nav>
           <ActiveLink href={'/'} activeClassName={styles.active}> 
