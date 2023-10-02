@@ -13,7 +13,7 @@ export default function Posts() {
   return (
     <>
       <Head>
-        <title>Huff, G. F. - XP</title>
+        <title>XP - Huff, G. F.</title>
       </Head>
       <main className={styles.container}>
         <div className={styles.projects}>

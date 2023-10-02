@@ -1,8 +1,29 @@
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
+
 import styles from '../styles/home.module.scss'
 import { Footer } from '@/components/Footer'
 
-export default function Home() {
+import { createClient } from "@/prismicio";
+import { RichText } from "prismic-dom";
+
+type Content = {
+  title: string;
+  subtitle: string;
+  link_action: string;
+  desktop_title : string;
+  desktop_content: string;
+  desktop_image: string; 
+  mobile_title: string;
+  mobile_content: string; 
+  mobile_image: string;
+}
+
+interface ContentProps {
+  content: Content;
+}
+
+export default function Home({content}: ContentProps) {
   return (
     <>
       <Head>
@@ -11,9 +32,9 @@ export default function Home() {
       <main className={styles.container}>
         <div className={styles.containerHeader}>
           <section className={styles.ctaText}>
-            <h1>Desenvolvedor Full-Stack</h1>
-            <span>Então, se você, por exemplo, removeu o foco de algo e deseja colocá-lo de volta no mesmo estilo padrão do navegador, ou deseja aplicar um estilo de foco a um elemento quando ele não está diretamente em foco, isso pode ser útil. </span>
-            <a>
+            <h1>{content.title}</h1>
+            <span>{content.subtitle}</span>
+            <a href={content.link_action}>
               <button>
                 VER MAIS!
               </button>
@@ -21,28 +42,28 @@ export default function Home() {
           </section>
           <img 
               src='/images/banner-conteudos.png'
-              alt="Conteúdos Sujeito Programador"
+              alt="Tecnologias Guilherme Huff"
           />
         </div>
 
         <hr className={styles.divisor} />
         <div className={styles.sectionContent}>
-          <img src="/images/webDev.png" alt="Conteúdos desenvolvimento de aplicacoes web" />
+          <img src={content.desktop_image} alt="Conteúdos desenvolvimento de aplicacoes web" />
 
           <section>
-            <h2>Sistemas Web Completos</h2>
-            <span>Criação de sistemas web, sites usando as tecnologias mais modernas e requisitadas pelo mercado.</span>
+            <h2>{content.desktop_title}</h2>
+            <span>{content.desktop_content}</span>
           </section>
         </div>
 
         <hr className={styles.divisor} />
         <div className={styles.sectionContent}>
           <section>
-            <h2>Aplicativos para Android e iOS</h2>
-            <span>Desenvolvimento de apps nativos para iOS e Android, construindo aplicativos do zero.</span>
+            <h2>{content.mobile_title}</h2>
+            <span>{content.mobile_content}</span>
           </section>
 
-          <img src="/images/financasApp.png" alt="Conteúdos desenvolvimento de apps" />
+          <img src={content.mobile_image} alt="Conteúdos desenvolvimento de apps" />
         </div>
 
         
@@ -51,4 +72,38 @@ export default function Home() {
 
     </>
   )
+}
+
+
+export const getStaticProps: GetStaticProps = async ({ previewData }) => {
+  const prismic = createClient({ previewData });
+
+  const response = await prismic.getSingle("homepage", { lang: "pt-br"})
+
+  // console.log(response.data)
+
+  const {
+    title, subtitle, link_action,
+    desktop_title, desktop_content, desktop_image, 
+    mobile_title, mobile_content, mobile_image
+  } = response.data;
+  
+  const content = {
+    title: RichText.asText(title),
+    subtitle: RichText.asText(subtitle),
+    link_action: link_action.url,
+    desktop_title : RichText.asText(desktop_title),
+    desktop_content: RichText.asText(desktop_content),
+    desktop_image: desktop_image.url, 
+    mobile_title: RichText.asText(mobile_title),
+    mobile_content: RichText.asText(mobile_content), 
+    mobile_image: mobile_image.url,
+  }
+
+  return {
+    props:{
+      content
+    }, 
+    revalidate: 60 * 2 //cada 2 minutos
+  }
 }
