@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/home.module.scss'
+import { Footer } from '@/components/Footer'
 
 export default function Home() {
   return (
@@ -46,6 +47,8 @@ export default function Home() {
 
         
       </main>
+      <Footer />
+
     </>
   )
 }

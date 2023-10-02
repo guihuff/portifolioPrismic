@@ -16,8 +16,8 @@ export function Header () {
             <a>Home</a>
           </ActiveLink>
 
-          <ActiveLink href={'/certificates'} activeClassName={styles.active} > 
-            <a>Certificados</a>
+          <ActiveLink href={'/posts'} activeClassName={styles.active} > 
+            <a>Experiências</a>
           </ActiveLink>
 
           <ActiveLink href={'/sobre'} activeClassName={styles.active}> 
