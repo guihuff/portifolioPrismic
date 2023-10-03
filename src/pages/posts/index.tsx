@@ -24,7 +24,7 @@ interface PostsProps {
 }
 
 export default function Posts({ posts }: PostsProps) {
-  console.log(posts)
+  // console.log(posts)
   return (
     <>
       <Head>
@@ -93,7 +93,7 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
         year: 'numeric'
       })}`,
       tecnologies: RichText.asText(post.data.tecnologies),
-      link: post.data.link  
+      link: post.data.link.url,
     }
   });
 
