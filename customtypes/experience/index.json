@@ -1,0 +1,74 @@
+{
+  "id": "experience",
+  "label": "post",
+  "format": "custom",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "cover": {
+        "type": "Image",
+        "config": {
+          "label": "cover",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "title": {
+        "type": "StructuredText",
+        "config": {
+          "label": "title",
+          "placeholder": "titulo da experiencia",
+          "allowTargetBlank": true,
+          "single": "heading1"
+        }
+      },
+      "init_date": {
+        "type": "Date",
+        "config": {
+          "label": "init_date",
+          "placeholder": "Data de inicio"
+        }
+      },
+      "end_date": {
+        "type": "Date",
+        "config": {
+          "label": "end_date",
+          "placeholder": "Data de fim"
+        }
+      },
+      "description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "description",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "tecnologies": {
+        "type": "StructuredText",
+        "config": {
+          "label": "tecnologies",
+          "placeholder": "Tecnologias utilizadas",
+          "allowTargetBlank": true,
+          "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "link": {
+        "type": "Link",
+        "config": {
+          "label": "link",
+          "placeholder": "",
+          "select": null
+        }
+      }
+    }
+  }
+}

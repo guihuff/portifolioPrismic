@@ -5,6 +5,104 @@ import type * as prismic from "@prismicio/client";
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
 /**
+ * Content for post documents
+ */
+interface ExperienceDocumentData {
+  /**
+   * cover field in *post*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: experience.cover
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  cover: prismic.ImageField<never>;
+
+  /**
+   * title field in *post*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: titulo da experiencia
+   * - **API ID Path**: experience.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.TitleField;
+
+  /**
+   * init_date field in *post*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: Data de inicio
+   * - **API ID Path**: experience.init_date
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#date
+   */
+  init_date: prismic.DateField;
+
+  /**
+   * end_date field in *post*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: Data de fim
+   * - **API ID Path**: experience.end_date
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#date
+   */
+  end_date: prismic.DateField;
+
+  /**
+   * description field in *post*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: experience.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * tecnologies field in *post*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Tecnologias utilizadas
+   * - **API ID Path**: experience.tecnologies
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  tecnologies: prismic.RichTextField;
+
+  /**
+   * link field in *post*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: experience.link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+}
+
+/**
+ * post document from Prismic
+ *
+ * - **API ID**: `experience`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ExperienceDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<ExperienceDocumentData>,
+    "experience",
+    Lang
+  >;
+
+/**
  * Content for homepage documents
  */
 interface HomepageDocumentData {
@@ -124,7 +222,7 @@ export type HomepageDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = HomepageDocument;
+export type AllDocumentTypes = ExperienceDocument | HomepageDocument;
 
 declare module "@prismicio/client" {
   interface CreateClient {
@@ -135,6 +233,12 @@ declare module "@prismicio/client" {
   }
 
   namespace Content {
-    export type { HomepageDocument, HomepageDocumentData, AllDocumentTypes };
+    export type {
+      ExperienceDocument,
+      ExperienceDocumentData,
+      HomepageDocument,
+      HomepageDocumentData,
+      AllDocumentTypes,
+    };
   }
 }

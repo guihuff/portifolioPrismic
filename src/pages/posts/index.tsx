@@ -1,15 +1,30 @@
-
+import { GetStaticProps } from 'next';
 
 import Head from 'next/head';
 import styles from './styles.module.scss';
-import Link from 'next/link';
 
-import thumbImg from '../../../public/images/tumb.jpg'
 import Image from 'next/image';
 
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
- 
-export default function Posts() {
+import { createClient } from "@/prismicio";
+import { RichText } from "prismic-dom";
+
+type Post = {
+  slug: string;
+  title: string
+  description: string[];
+  cover: string;
+  date: string;
+  tecnologies: string;
+  link: string;
+}
+
+interface PostsProps {
+  posts: Post[];
+}
+
+export default function Posts({ posts }: PostsProps) {
+  console.log(posts)
   return (
     <>
       <Head>
@@ -17,27 +32,23 @@ export default function Posts() {
       </Head>
       <main className={styles.container}>
         <div className={styles.projects}>
-          <Link href={"/"}>
-              <Image src={thumbImg} alt="Projeto um" 
+          <a href={posts[0].link}>
+              <img src={posts[0].cover} alt="Projeto um" 
                 width={720}
                 height={410}
-                quality={100}
               />
 
               <strong>
-                Projeto LStyle
+                {posts[0].title}
               </strong>
-              <time>Set. 2021 - Out. 2023</time>
-              <p>Ferramenta de identificação de estilos de aprendizagem, para auxiliar os docentes em sua jornada de desenvolvimento de plano de ensino, focado em metodologias inovadoras e sugestivas.
-
-                A ferramenta é focada nas metodologias de estilos de Honey-Alonso, e David Kolb.
-
-                Iniciou-se a primeira versão com desenvolvimento em Python, HTML, CSS, Bootstrap e JS. (Descontinuada)
-
-                Atualmente em sua segunda versão, trabalhamos com TypeScript, Express (NodeJS), ReactJS, Git e GitHub, além de outras ferramentas como Figma e ClickUP, a metodologia de trabalho utilizada é o Scrum.
+              <time>{posts[0].date}</time>
+              <p>
+                {posts[0].description.map((item, index) => {
+                  return <span key={index}>{item} <br /></span>
+                })}
               </p>
-              <span>TypeScript · Node.js · React.js · PostgreSQL · Git · Docker · Scrum </span>
-          </Link>  
+              <h4>{posts[0].tecnologies}</h4>
+          </a>  
 
           <div className={styles.buttonNavigate}>
               <button>
@@ -54,4 +65,46 @@ export default function Posts() {
       </main>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ previewData }) => {
+  const prismic = createClient({ previewData });
+
+  const response = await prismic.getByType("experience", { 
+    lang: "pt-br",
+    pageSize: 1
+  });
+
+  // console.log(JSON.stringify(response, null, 2));
+
+  const posts = response.results.map(post => {
+    return {
+      slug: post.uid,
+      title: RichText.asText(post.data.title),
+      description: post.data.description.map(item => {
+        return item.text
+      }),
+      cover: post.data.cover.url,
+      date: `${new Date(`${post.data.init_date}`).toLocaleDateString('pt-BR', {
+        month: 'short',
+        year: 'numeric'
+      })} - ${new Date(`${post.data.end_date}`).toLocaleDateString('pt-BR', {
+        month: 'short',
+        year: 'numeric'
+      })}`,
+      tecnologies: RichText.asText(post.data.tecnologies),
+      link: post.data.link  
+    }
+  });
+
+  // console.log(posts)
+  
+  // const content = {}
+
+  return {
+    props:{
+      posts
+    }, 
+    revalidate: 60 * 30 //cada 0,5 horas
+  }
 }
