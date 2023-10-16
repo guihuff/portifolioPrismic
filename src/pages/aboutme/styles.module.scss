@@ -125,6 +125,7 @@
       font-size: 1.05rem;
     }
     h4 {
+      color: var(--blue-900);
       font-size: 0.83rem;
     }
     p {
@@ -146,7 +147,21 @@
 
     .logo {
       order: 0;
-      width: 350px;
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 530px) {
+  .studyList {  
+    li {
+      .liStudyTitle {
+        flex-direction: column;
+        align-items: start;        
+        div + div {
+          text-align: start;
+        }
+      }
     }
   }
 }

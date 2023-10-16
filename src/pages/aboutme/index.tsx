@@ -1,3 +1,4 @@
+import { GetStaticProps } from "next";
 import Head from "next/head";
 import styles from './styles.module.scss'
 import Image from "next/image";
@@ -10,14 +11,52 @@ import { ProgressBar } from "@/components/ProgressBar";
 import { useEffect, useRef, useState } from "react";
 import { Footer } from "@/components/Footer";
 
+import { createClient } from "@/prismicio";
+import { RichText } from "prismic-dom";
 
-export default function AboutMe() {
+type Academic = {
+  slug: string;
+  institution: string;
+  course: string;
+  date: string;
+  local: string;
+  description: string;
+}
+
+type Courses = {
+  slug: string;
+  title: string;
+  school: string;
+  teacher: string;
+  hours: string;
+  conclusion: string;
+  description: string;
+}
+
+type Content = {
+  texto_sobre: {
+    type: string;
+    text: string;
+    spans: []
+  }[];
+  link_github: string;
+  link_linkdin: string;
+  academic: Academic[];
+  courses: Courses[];
+}
+
+interface ContentProps {
+  content: Content;
+}
+
+export default function AboutMe({content}: ContentProps) {
   const carosel = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
     setWidth(carosel.current!.scrollWidth - carosel.current!.offsetWidth);
   }, []);
+
   return (
     <>
       <Head>
@@ -28,33 +67,16 @@ export default function AboutMe() {
         <section className={styles.apresentationText}>
           <div>
             <h1>Sobre mim</h1>
-            <p>
-              Graduando em Ciência da Computação na Universidade Tecnológica Federal do Paraná (UTFPR). 
-              Tenho uma sólida dedicação à engenharia de software, respaldada por minha experiência 
-              em desenvolvimento web fullstack,bem como meu entendimento das práticas ágeis, incluindo
-              o framework Scrum.
-            </p>
-            <p>
-              Ao longo do meu percurso acadêmico, vivenciei uma jornada repleta de estágios de aprendizado enriquecedores. 
-              Essas experiências me proporcionaram a oportunidade de explorar uma ampla gama de linguagens de programação, 
-              estruturas de dados e a criação de sistemas. Além disso, adquiri conhecimentos na construção e gestão de bancos 
-              de dados, bem como na compreensão dos fundamentos das redes de computadores e sistemas operacionais.
-            </p>
-            <p>
-              À medida que avançava no curso, direcionei minha dedicação para a esfera da engenharia de software, 
-              concentrando{"‐"}me em habilidades cruciais    como a elicitação de requisitos e a aplicação prática 
-              de metodologias ágeis, incluindo o Scrum. Simultaneamente, mergulhei no mundo da programação voltada 
-              para a web. Começando pelo desenvolvimento frontend, atualmente foco minha expertise no backend, 
-              trabalhando com tecnologias como Node.js e a linguagem Go.
-            </p>
-            <p>
-              Estou direcionando minha busca principalmente para oportunidades nas áreas de desenvolvimento, 
-              análise ou teste, com foco em posições de backend. No entanto, estou apto a desempenhar atividades 
-              no frontend ou atuar como administrador de banco de dados, caso necessário.
-            </p>
+            {content.texto_sobre.map((item, index) => {
+              return ( 
+                <p key={index}>
+                  {item.text}
+                </p>
+              )
+            })}
             <div className={styles.social}>
-              <a href="/"><BiLogoGithub size={30}/></a>
-              <a href="/"><CiLinkedin size={30}/></a>
+              <a href={content.link_github}><BiLogoGithub size={30}/></a>
+              <a href={content.link_linkdin}><CiLinkedin size={30}/></a>
             </div>
           </div>
           <Image src={Logo} alt="Logo Guilherme Feier Huff" className={styles.logo}/>
@@ -62,23 +84,27 @@ export default function AboutMe() {
         <section className={styles.studyContainer}>
           <h1>Formação Acadêmica</h1>
           <ul className={styles.studyList}>
-            <li>
-              <div className={styles.liStudyTitle}>
-                <div>
-                  <h3>Universidade Tecnológica Federal do Paraná (UTFPR)</h3>
-                  <h4>Bacharelado em Ciência Da Computação</h4>
-                </div>
-                <div>
-                  <p>Santa Helena, PR</p>
-                  <p>março 2019 – dez. 2023</p> 
-                </div> 
-              </div>
-              <h5>Áreas de estudo do curso:</h5> 
-              <p>
-                Sistemas Gerenciadores de Banco de Dados, Redes, Compiladores, Teoria da Computação, 
-                Desenvolvimento Web, Sistemas Operacionais, Engenharia de Software, IA, entre outros...
-              </p>
-            </li>            
+            {content.academic.map(item => {
+              return (
+                <li key={item.slug}>
+                  <div className={styles.liStudyTitle}>
+                    <div>
+                      <h3>{item.institution}</h3>
+                      <h4>{item.course}</h4>
+                    </div>
+                    <div>
+                      <p>{item.local}</p>
+                      <p>{item.date}</p> 
+                    </div> 
+                  </div>
+                  <h5>Áreas de estudo do curso:</h5> 
+                  <p>
+                    {item.description}
+                  </p>
+                </li>     
+              )
+            })}
+                   
           </ul>
         </section>
         <section className={styles.studyContainer}>
@@ -92,19 +118,24 @@ export default function AboutMe() {
             transition={{duration: 0.5}}
           >
             <motion.ul className={styles.innerCarrossel}>
-              <motion.li className={styles.itemCarrossel}>
-                <h3>Titulo do curso</h3>
-                <div className={styles.liStudyTitleCarrossel}>
-                  <div>
-                    <h4>Escola - Professor</h4>
+              {content.courses.map(item => {
+                return (
+                <motion.li key={item.slug} className={styles.itemCarrossel}>
+                  <h3>{item.title}</h3>
+                  <div className={styles.liStudyTitleCarrossel}>
+                    <div>
+                      <h4>{item.school} - {item.teacher}</h4>
+                    </div>
+                    <div>
+                      <p>{item.hours} horas</p>
+                      <p>{item.conclusion}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p>horas</p>
-                    <p>Ano</p>
-                  </div>
-                </div>
-                <p className={styles.carrosselText}>conteudo do xurso resumidamente</p>
-              </motion.li>
+                  <p className={styles.carrosselText}>{item.description}</p>
+                </motion.li>
+                )
+              })}
+              
             </motion.ul>
           </motion.div>
         </section>
@@ -112,4 +143,58 @@ export default function AboutMe() {
       <Footer />
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ previewData }) => {
+  const prismic = createClient({ previewData });
+
+  const response = await prismic.getSingle("aboutme", { lang: "pt-br"});
+  const responseAcademic = await prismic.getByType("academic", { 
+    lang: "pt-br",
+  });
+  const responseCourses= await prismic.getByType("courses", { 
+    lang: "pt-br",
+  });
+
+  const {
+    texto_sobre, link_github, link_linkdin
+  } = response.data;
+
+  const academic = responseAcademic.results.map(item => {
+    return {
+      slug: item.uid,
+      institution: RichText.asText(item.data.institution),
+      course: RichText.asText(item.data.curso),
+      date: RichText.asText(item.data.data),
+      local: RichText.asText(item.data.local),
+      description: RichText.asText(item.data.areas_de_estudo),
+    }
+  });
+
+  const courses = responseCourses.results.map(item => {
+    return {
+      slug: item.uid,
+      title: RichText.asText(item.data.title),
+      school: RichText.asText(item.data.school),
+      teacher: RichText.asText(item.data.teacher),
+      hours: RichText.asText(item.data.hours),
+      conclusion: RichText.asText(item.data.conclusion),
+      description: RichText.asText(item.data.course_content),
+    }
+  });
+
+  const content = {
+    texto_sobre,
+    link_github: link_github.url,
+    link_linkdin: link_linkdin.url,
+    academic,
+    courses
+  }
+
+  return {
+    props:{
+      content
+    }, 
+    // revalidate: 60 * 2 //cada 2 minutos
+  }
 }

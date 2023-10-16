@@ -1,0 +1,61 @@
+{
+  "id": "aboutme",
+  "label": "aboutme",
+  "format": "custom",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "id",
+          "placeholder": ""
+        }
+      },
+      "texto_sobre": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Texto Sobre",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "link_github": {
+        "type": "Link",
+        "config": {
+          "label": "link github",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "select": null
+        }
+      },
+      "link_linkdin": {
+        "type": "Link",
+        "config": {
+          "label": "link linkdin",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "select": null
+        }
+      },
+      "academic": {
+        "type": "Link",
+        "config": {
+          "label": "academic",
+          "select": "document",
+          "customtypes": ["academic"]
+        }
+      },
+      "courses": {
+        "type": "Link",
+        "config": {
+          "label": "courses",
+          "select": "document",
+          "customtypes": ["courses"]
+        }
+      }
+    }
+  }
+}

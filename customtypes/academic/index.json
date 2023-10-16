@@ -1,0 +1,62 @@
+{
+  "id": "academic",
+  "label": "Academic",
+  "format": "custom",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "institution": {
+        "type": "StructuredText",
+        "config": {
+          "label": "institution",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "heading3"
+        }
+      },
+      "curso": {
+        "type": "StructuredText",
+        "config": {
+          "label": "curso",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "heading4"
+        }
+      },
+      "local": {
+        "type": "StructuredText",
+        "config": {
+          "label": "local",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "paragraph"
+        }
+      },
+      "data": {
+        "type": "StructuredText",
+        "config": {
+          "label": "data",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "paragraph"
+        }
+      },
+      "areas_de_estudo": {
+        "type": "StructuredText",
+        "config": {
+          "label": "areas de estudo",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "paragraph"
+        }
+      }
+    }
+  }
+}
