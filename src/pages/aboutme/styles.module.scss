@@ -1,0 +1,152 @@
+.container {
+  position: relative;
+  min-height: calc(100vh - 6rem);
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  max-width: 1120px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.apresentationText {
+  padding: 2rem;
+  color: var(--white);
+  text-align: justify;
+  max-width: 100%;
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    font-size: 2.5rem;
+    color: var(--blue-900)
+  }
+  div {
+    max-width: 700px;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+  
+}
+
+.social {
+  a {
+    transition: color 0.5s;
+    &:hover {
+      color: var(--blue-900);
+    }
+    &:nth-child(n + 2) {
+      margin-left: 5px;
+    }
+  }
+  
+}
+
+.studyContainer {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: 1px solid var(--gray-200);
+  width: 100%;
+  overflow: hidden;
+
+  h1 {
+    font-size: 1.2rem;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+}
+
+.studyList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: var(--white);
+
+  li {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--gray-200);
+
+    .liStudyTitle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      
+      div + div {
+        text-align: end;
+        color: var(--gray-100);
+      }
+    }
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+  h4 {
+    font-size: 1rem;
+  }
+  h5 {
+    font-size: 0.8rem;
+  }
+}
+
+.carrossel {
+  cursor: grab;
+
+  .innerCarrossel {
+    display: flex;
+    gap: 12px;
+  }
+  .itemCarrossel {
+    background-color: var(--white);
+    margin-top: 1rem;
+    width: 320px;
+    min-width: 320px;
+    height: 160px;
+    border-radius: 0.8rem;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+    .liStudyTitleCarrossel {
+      display: flex;
+      justify-content: space-between;
+
+      div + div {
+        text-align: end;
+        color: var(--gray-200);
+      }
+    }
+    h3 {
+      font-size: 1.05rem;
+    }
+    h4 {
+      font-size: 0.83rem;
+    }
+    p {
+      font-size: 0.8rem;
+    }
+    .carrosselText {
+      margin-top: 0.8rem;
+    }
+  }
+}
+
+@media (max-width: 930px) {
+  .apresentationText {
+    flex-direction: column;
+
+    div {
+      order: 1;
+    }
+
+    .logo {
+      order: 0;
+      width: 350px;
+    }
+  }
+}

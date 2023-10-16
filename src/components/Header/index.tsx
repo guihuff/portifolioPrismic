@@ -20,7 +20,7 @@ export function Header () {
             <a>Experiências</a>
           </ActiveLink>
 
-          <ActiveLink href={'/sobre'} activeClassName={styles.active}> 
+          <ActiveLink href={'/aboutme'} activeClassName={styles.active}> 
             <a>Sobre mim</a>
           </ActiveLink>
 

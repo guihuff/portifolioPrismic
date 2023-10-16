@@ -92,3 +92,14 @@
     }
   }
 }
+
+@media (max-width: 380px) {
+  .headerContent {
+    nav {
+      a {
+        padding: 0;
+      }
+    }
+  }
+
+}

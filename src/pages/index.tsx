@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer'
 
 import { createClient } from "@/prismicio";
 import { RichText } from "prismic-dom";
+import { ProgressBar } from '@/components/ProgressBar';
 
 type Content = {
   title: string;
@@ -30,6 +31,7 @@ export default function Home({content}: ContentProps) {
         <title>Home - Huff, G F.</title>
       </Head>
       <main className={styles.container}>
+        <ProgressBar />
         <div className={styles.containerHeader}>
           <section className={styles.ctaText}>
             <h1>{content.title}</h1>
