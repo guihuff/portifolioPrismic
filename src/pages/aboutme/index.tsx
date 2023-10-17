@@ -13,6 +13,8 @@ import { Footer } from "@/components/Footer";
 
 import { createClient } from "@/prismicio";
 import { RichText } from "prismic-dom";
+import * as prismicH from '@prismicio/helpers';
+
 
 type Academic = {
   slug: string;
@@ -182,14 +184,14 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
       hours: RichText.asText(item.data.hours),
       conclusion: RichText.asText(item.data.conclusion),
       description: RichText.asText(item.data.course_content),
-      credentials: item.data.certificed.url,
+      credentials: prismicH.asLink(item.data.certificed),
     }
   });
 
   const content = {
     texto_sobre,
-    link_github: link_github.url,
-    link_linkdin: link_linkdin.url,
+    link_github: prismicH.asLink(link_github),
+    link_linkdin: prismicH.asLink(link_linkdin),
     academic,
     courses
   }

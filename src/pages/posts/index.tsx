@@ -8,16 +8,18 @@ import Image from 'next/image';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { createClient } from "@/prismicio";
 import { RichText } from "prismic-dom";
+import * as prismicH from '@prismicio/helpers';
+
 import { useState } from 'react';
 
 type Post = {
   slug: string;
   title: string
-  description: string[];
-  cover: string;
+  description: any[];
+  cover: string | null | undefined;
   date: string;
   tecnologies: string;
-  link: string;
+  link: string | null;
 }
 
 interface PostsProps {
@@ -63,7 +65,7 @@ export default function Posts({ posts: postsBlog, totalPages, page }: PostsProps
           year: 'numeric'
         })}`,
         tecnologies: RichText.asText(post.data.tecnologies),
-        link: post.data.link.url,
+        link: prismicH.asLink(post.data.link),
       }
     });
     setCurrentPage(pageNumber);
@@ -92,7 +94,7 @@ export default function Posts({ posts: postsBlog, totalPages, page }: PostsProps
           year: 'numeric'
         })}`,
         tecnologies: RichText.asText(post.data.tecnologies),
-        link: post.data.link.url,
+        link: prismicH.asLink(post.data.link),
       }
     });
     setCurrentPage(pageNumber);
@@ -108,8 +110,8 @@ export default function Posts({ posts: postsBlog, totalPages, page }: PostsProps
         <div className={styles.projects}>
           {posts.map(item => {
             return (
-              <a href={item.link}>
-                <Image src={item.cover} alt="Projeto um" 
+              <a href={item.link ? item.link : '/404'}>
+                <Image src={item.cover ? item.cover : ''} alt="Projeto um" 
                   width={720}
                   height={410}
                   quality={75}
@@ -175,7 +177,7 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
         year: 'numeric'
       })}`,
       tecnologies: RichText.asText(post.data.tecnologies),
-      link: post.data.link.url,
+      link: prismicH.asLink(post.data.link),
     }
   });
 

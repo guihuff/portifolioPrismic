@@ -6,6 +6,8 @@ import { Footer } from '@/components/Footer'
 
 import { createClient } from "@/prismicio";
 import { RichText } from "prismic-dom";
+import * as prismicH from '@prismicio/helpers';
+
 import { ProgressBar } from '@/components/ProgressBar';
 
 type Content = {
@@ -93,7 +95,7 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
   const content = {
     title: RichText.asText(title),
     subtitle: RichText.asText(subtitle),
-    link_action: link_action.url,
+    link_action: prismicH.asLink(link_action),
     desktop_title : RichText.asText(desktop_title),
     desktop_content: RichText.asText(desktop_content),
     desktop_image: desktop_image.url, 
