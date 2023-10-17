@@ -31,6 +31,7 @@ type Courses = {
   hours: string;
   conclusion: string;
   description: string;
+  credentials: string;
 }
 
 type Content = {
@@ -132,6 +133,7 @@ export default function AboutMe({content}: ContentProps) {
                     </div>
                   </div>
                   <p className={styles.carrosselText}>{item.description}</p>
+                  <a href={item.credentials} target="_blank">Certificado</a>
                 </motion.li>
                 )
               })}
@@ -180,6 +182,7 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
       hours: RichText.asText(item.data.hours),
       conclusion: RichText.asText(item.data.conclusion),
       description: RichText.asText(item.data.course_content),
+      credentials: item.data.certificed.url,
     }
   });
 
@@ -195,6 +198,6 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
     props:{
       content
     }, 
-    // revalidate: 60 * 2 //cada 2 minutos
+    // revalidate: 60 * 30 //cada 2 minutos
   }
 }

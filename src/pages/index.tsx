@@ -106,6 +106,6 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
     props:{
       content
     }, 
-    revalidate: 60 * 2 //cada 2 minutos
+    revalidate: 60 * 30 //cada 30 minutos
   }
 }

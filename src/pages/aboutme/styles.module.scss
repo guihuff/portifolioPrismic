@@ -111,6 +111,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
     .liStudyTitleCarrossel {
       display: flex;
@@ -133,6 +134,22 @@
     }
     .carrosselText {
       margin-top: 0.8rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* number of lines to show */
+      -webkit-box-orient: vertical;
+    }
+    a {
+      color: var(--gray-200);
+
+      font-size: 0.8rem;
+      transition: color .2s;
+      background-color: var();
+      
+      &:hover {
+        color: var(--yellow-500);
+      }
     }
   }
 }
