@@ -1,0 +1,37 @@
+.container {
+  background-color: var(--gray-700);
+  height: 3rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.content {
+  max-width: 1120px;
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  height: 3rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+
+
+  span {
+    color: var(--white);
+  }
+
+}
+
+@media (max-width: 480px) {
+  .container {
+    height: 5rem;
+  }
+  .content {
+    flex-direction: column-reverse;
+    height: 5.5rem;
+    padding-top: 1rem;
+    
+    span {
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "courses",
+  "label": "courses",
+  "format": "custom",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "title": {
+        "type": "StructuredText",
+        "config": {
+          "label": "title",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "heading3"
+        }
+      },
+      "school": {
+        "type": "StructuredText",
+        "config": {
+          "label": "school",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "heading4"
+        }
+      },
+      "teacher": {
+        "type": "StructuredText",
+        "config": {
+          "label": "teacher",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "heading4"
+        }
+      },
+      "hours": {
+        "type": "StructuredText",
+        "config": {
+          "label": "hours",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "paragraph"
+        }
+      },
+      "conclusion": {
+        "type": "StructuredText",
+        "config": {
+          "label": "conclusion",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "paragraph"
+        }
+      },
+      "course_content": {
+        "type": "StructuredText",
+        "config": {
+          "label": "course content",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "paragraph"
+        }
+      },
+      "certificed": {
+        "type": "Link",
+        "config": {
+          "label": "certificed",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "select": null
+        }
+      },
+      "certificed_image": {
+        "type": "Image",
+        "config": {
+          "label": "certificed_image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    }
+  }
+}
