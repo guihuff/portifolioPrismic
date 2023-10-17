@@ -14,8 +14,8 @@ import { useState } from 'react';
 
 type Post = {
   slug: string;
-  title: string
-  description: any[];
+  title: string;
+  description: string[];
   cover: string | null | undefined;
   date: string;
   tecnologies: string;
@@ -54,7 +54,10 @@ export default function Posts({ posts: postsBlog, totalPages, page }: PostsProps
         slug: post.uid,
         title: RichText.asText(post.data.title),
         description: post.data.description.map(item => {
-          return item.text
+          if('text' in item){
+            return item.text;
+          }
+          return ''; 
         }),
         cover: post.data.cover.url,
         date: `${new Date(`${post.data.init_date}`).toLocaleDateString('pt-BR', {
@@ -83,7 +86,10 @@ export default function Posts({ posts: postsBlog, totalPages, page }: PostsProps
         slug: post.uid,
         title: RichText.asText(post.data.title),
         description: post.data.description.map(item => {
-          return item.text
+          if('text' in item){
+            return item.text;
+          }
+          return ''; 
         }),
         cover: post.data.cover.url,
         date: `${new Date(`${post.data.init_date}`).toLocaleDateString('pt-BR', {
@@ -166,7 +172,10 @@ export const getStaticProps: GetStaticProps = async ({ previewData }) => {
       slug: post.uid,
       title: RichText.asText(post.data.title),
       description: post.data.description.map(item => {
-        return item.text
+        if('text' in item){
+          return item.text;
+        }
+        return '';        
       }),
       cover: post.data.cover.url,
       date: `${new Date(`${post.data.init_date}`).toLocaleDateString('pt-BR', {
