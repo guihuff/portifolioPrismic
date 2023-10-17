@@ -25,7 +25,7 @@ export function Header () {
           </ActiveLink>
 
         </nav>
-        <a className={styles.contactButton} type="button" href='https://sujeitoprogramador.com'>Contatar</a>
+        <a className={styles.contactButton} type="button" target='_blank' href='https://api.whatsapp.com/send?phone=5551995119425&text=Ol%C3%A1,%20vim%20pelo%20seu%20site!'>Contatar</a>
 
       </div>
     </header>
